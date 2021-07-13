@@ -12,9 +12,11 @@ Future<Map<String, dynamic>> readJsonData() async{
 }
 
 Future<List<CityModel>>cityCode() async{
+
   var readData =  await readJsonData();
   List listData = readData['List'];
   String cityList = "";
+
   listData.forEach((element) {
     cityList = cityList + ',' +  element['CityCode'];
   });
@@ -24,13 +26,15 @@ Future<List<CityModel>>cityCode() async{
   );
 
   var responseMap =  jsonDecode(response.body);
-  List<CityModel> cityModels = [];
 
+  List<CityModel> cityModels = [];
   List responseMapSimple = responseMap['list'];
+
   responseMapSimple.forEach((element) {
     CityModel cityModel = CityModel(id: element['id'], name: element['name'], description: element['weather'][0]['description'], temp: element['main']['temp']);
     cityModels.add(cityModel);
   });
+
   return cityModels;
 }
 
